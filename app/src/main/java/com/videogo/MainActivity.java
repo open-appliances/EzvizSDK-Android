@@ -21,6 +21,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ezviz.demo.videotalk.MultiTestActivity;
 import com.ezviz.opensdk.auth.EZAuthAPI;
 import com.google.gson.Gson;
 import com.videogo.constant.Config;
@@ -33,12 +34,13 @@ import com.videogo.util.LogUtil;
 
 import java.util.List;
 
+import ezviz.ezopensdk.BuildConfig;
+import ezviz.ezopensdk.R;
 import ezviz.ezopensdk.demo.SdkInitParams;
 import ezviz.ezopensdk.demo.SdkInitTool;
 import ezviz.ezopensdk.demo.ServerAreasEnum;
 import ezviz.ezopensdk.demo.SpTool;
 import ezviz.ezopensdk.demo.ValueKeys;
-import ezviz.ezopensdk.R;
 import ezviz.ezopensdkcommon.common.RootActivity;
 
 import static com.videogo.EzvizApplication.getOpenSDK;
@@ -386,7 +388,7 @@ public class MainActivity extends RootActivity {
 
         TextView sdkVerTv = (TextView) findViewById(R.id.tv_sdk_ver);
         if (sdkVerTv != null){
-            sdkVerTv.setText("SDK Version: " + Config.VERSION);
+            sdkVerTv.setText("SDK Version: " + BuildConfig.VERSION_NAME);
         }
     }
 
@@ -395,6 +397,12 @@ public class MainActivity extends RootActivity {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             mCurrentServerArea = ServerAreasEnum.getAllServers().get(position);
+            // http://canal.hikvision.com.cn/browse/BUGOL-11702
+            mAppKeyET.setText("22dbe6173f4548e88ade59c8d911bd6f");
+            mAccessTokenET.setText("at.69zqh81f1zejgrrn3pgui32q3c7xk3bb-58fy4r7e5s-0l7vod1-17jx1jcnp");
+//            mAppKeyET.setText("775e87b465a54fcc82915611bfc36eb6");
+//            mAccessTokenET.setText("at.1hwlg8akaimfa1lkds92zt5b9zc5j435-2rtp3qpy6r-0ekyeex-hdxzbfoem");
+
             // 仅预置了appKey的区域才展示萤石账号登录按钮
             if (mCurrentServerArea.defaultOpenAuthAppKey != null){
                 showEzvizAccountLoginTv(true);
